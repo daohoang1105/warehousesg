@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<!-- Code By Webdevtrick ( https://webdevtrick.com ) -->
+{% load static %}
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Datatable | Webdevtrick.com</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css'>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,500" rel="stylesheet"/>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'styles/style2.css' %}">
+  
+  
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js'></script>
+	
+  <link href="/static/assets/css/css1.css" rel="stylesheet" />
+  <script src="/static/assets/js/js1.js"></script>
+</head>
+
+<body>
+
+<!-- <div style="float:left;margin-left: 00px;margin-top: 10px;"> -->
+<div class="row">
+<div class="container"> 
+  <center><h1>Spare part out record</h1> </center>
+  
+	<table border="1" class="table responsive" id="sort">
+    <thead>
+    <tr style="text-align: right;">
+    <th scope="col">ID</th>
+    <th scope="col">Part Code</th>
+    <th scope="col">Good Status</th>
+    <th scope="col">Spare Part Type</th>
+    <th scope="col">csce HWMO</th>
+    <th scope="col">Serial Number</th>
+    <th scope="col">Product Description</th>
+    <th scope="col">Deliver Date</th>
+    <th scope="col">warehouse</th>
+    <th scope="col">sender</th>
+    <th scope="col">invoice</th>
+    <th scope="col">batch</th>
+    <th scope="col">transit Way</th>
+    
+    <th scope="col">out QTY</th>
+    <th scope="col">out date</th>
+    <th scope="col">out reciever</th>
+    <th scope="col">out GSP</th>
+    <th scope="col">out remark</th>
+    </tr>
+    </thead>
+    <tbody>
+      {% for d in data %}
+    <tr>
+    <td data-table-header="ID"><a href="{% url 'manage-spare' d.sparePartGoodOut.id %}">{{d.id}}</a></td>
+    <td data-table-header="Part Code">{{d.sparePartGoodOut.partCode}}</td>
+    <td data-table-header="Good Status">{{d.sparePartGoodOut.goodStatus}}</td>
+    <td data-table-header="Spare Part Type">{{d.sparePartGoodOut.sparePartType}}</td>
+    <td data-table-header="csce HWMO">{{d.sparePartGoodOut.csceHWMO}}</td>
+    <td data-table-header="Serial Number">{{d.sparePartGoodOut.serialNumber}}</td>
+    <td data-table-header="Product Description">{{d.sparePartGoodOut.productDescription}}</td>
+    <td data-table-header="Deliver Date">{{d.sparePartGoodOut.deliverDate}}</td>
+    <td data-table-header="warehouse">{{d.sparePartGoodOut.warehouse}}</td>
+    <td data-table-header="sender">{{d.sparePartGoodOut.sender}}</td>
+    <td data-table-header="invoice">{{d.sparePartGoodOut.invoice}}</td>
+    <td data-table-header="batch">{{d.sparePartGoodOut.batch}}</td>
+    <td data-table-header="transit Way">{{d.sparePartGoodOut.transitWay}}</td>
+    
+    <td data-table-header="out QTY">{{d.outqty}}</td>
+    <td data-table-header="out date">{{d.outDate}}</td>
+    <td data-table-header="out reciever">{{d.outReceiver}}</td>
+    <td data-table-header="out GSP">{{d.outGSP}}</td>
+    <td data-table-header="out remark">{{d.outRemark}}</td>
+    </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+</div>
+</div>
+</div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+
+
+  <main class="create-room layout">
+
+    <div class="container">
+      <div class="layout__box">
+
+        <div class="layout__boxHeader">
+          <div class="layout__boxTitle">
+            <a href="{% url 'upload' %}">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <title>arrow-left</title>
+                <path
+                  d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                </path>
+              </svg>
+            </a>
+            <h3>add spare part management</h3>
+          </div>
+        </div>
+        <div class="layout__body">
+          <form class="form" method="POST" action="">
+            {% csrf_token %}
+
+            
+
+            <div class="form__group">
+              <label for="partCode">partCode</label>
+              {{form.partCode}}
+            </div>
+
+            <div class="form__group">
+              <label for="goodStatus">goodStatus</label>
+              {{form.goodStatus}}
+            </div>
+
+            <div class="form__group">
+              <label for="sparePartType">sparePartType</label>
+              {{form.sparePartType}}
+            </div>
+
+            <div class="form__group">
+              <label for="csceHWMO">csceHWMO</label>
+              {{form.csceHWMO}}
+            </div>
+
+            <div class="form__group">
+              <label for="serialNumber">serialNumber</label>
+              {{form.serialNumber}}
+            </div>
+            
+            <div class="form__group">
+              <label for="productDescription">productDescription</label>
+              {{form.productDescription}}
+            </div>
+
+            <div class="form__group">
+              <label for="deliverDate" placeholder="YYYY-MM-DD">deliverDate</label>
+              {{form.deliverDate}}
+            </div>
+
+            <div class="form__group">
+              <label for="warehouse">warehouse</label>
+              {{form.warehouse}}
+            </div>
+
+            <div class="form__group">
+              <label for="sender">sender</label>
+              {{form.sender}}
+            </div>
+
+            <div class="form__group">
+              <label for="invoice">invoice</label>
+              {{form.invoice}}
+            </div>
+
+            <div class="form__group">
+                <label for="batch">batch</label>
+                {{form.batch}}
+              </div>
+
+            <div class="form__group">
+                <label for="transitWay">transitWay</label>
+                {{form.transitWay}}
+            </div>
+
+            <div class="form__group">
+                <label for="remark">remark</label>
+                {{form.remark}}
+              </div>
+  
+              <div class="form__group">
+                  <label for="actualQTY">actualQTY</label>
+                  {{form.actualQTY}}
+                </div>
+  
+              <div class="form__group">
+                  <label for="consumQTY">consumQTY</label>
+                  {{form.consumQTY}}
+              </div>
+
+              <div class="form__group">
+                <label for="remainQTY">remainQTY</label>
+                {{form.remainQTY}}
+            </div>
+
+
+
+            <div class="form__action">
+              <a class="btn btn--dark" href="{% url 'home' %}">Cancel</a>
+              <button class="btn btn--main" type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>

@@ -1,0 +1,291 @@
+
+<!DOCTYPE html>
+<!-- Code By Webdevtrick ( https://webdevtrick.com ) -->
+{% load static %}
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>SPARE PART</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css'>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,500" rel="stylesheet"/>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'styles/style2.css' %}">
+  <!-- <link href="/static/assets/css/css1.css" rel="stylesheet" /> -->
+  <script src="{% static 'styles/script2.js' %}"></script>
+  
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js'></script>
+	<script src="{% static 'styles/script2.js' %}"></script>
+  <!-- <script src="/static/assets/js/js1.js"></script> -->
+  <script>
+    function iniFrame() {
+        if ( window.location !== window.parent.location )
+        {          
+            // The page is in an iFrames
+            document.write('');
+        } 
+        else {             
+            // The page is not in an iFrame
+            document.write('<h3><a href="http://127.0.0.1:8000/tables.html">Table</a><h3>');
+          
+        }
+    }
+      
+    // Calling iniFrame function
+    iniFrame();
+    </script>
+</head>
+
+<body>
+
+  <h1>Manage spare (ID = {{spare.id}})</h1>
+  <div class="room__topRight">
+    <div style="float:right;">
+      <a href="{% url 'update-spare' spare.id %}">EDIT
+        <svg
+          enable-background="new 0 0 24 24"
+          height="32"
+          viewBox="0 0 24 24"
+          width="32"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title>edit</title>
+          <g>
+            <path d="m23.5 22h-15c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h15c.276 0 .5.224.5.5s-.224.5-.5.5z" />
+          </g>
+          <g>
+            <g>
+              <path
+                d="m2.5 22c-.131 0-.259-.052-.354-.146-.123-.123-.173-.3-.133-.468l1.09-4.625c.021-.09.067-.173.133-.239l14.143-14.143c.565-.566 1.554-.566 2.121 0l2.121 2.121c.283.283.439.66.439 1.061s-.156.778-.439 1.061l-14.142 14.141c-.065.066-.148.112-.239.133l-4.625 1.09c-.038.01-.077.014-.115.014zm1.544-4.873-.872 3.7 3.7-.872 14.042-14.041c.095-.095.146-.22.146-.354 0-.133-.052-.259-.146-.354l-2.121-2.121c-.19-.189-.518-.189-.707 0zm3.081 3.283h.01z"
+              />
+            </g>
+            <g>
+              <path
+                d="m17.889 10.146c-.128 0-.256-.049-.354-.146l-3.535-3.536c-.195-.195-.195-.512 0-.707s.512-.195.707 0l3.536 3.536c.195.195.195.512 0 .707-.098.098-.226.146-.354.146z"
+              />
+            </g>
+          </g>
+        </svg>
+        <span>&nbsp</span>
+    <a href="{% url 'delete-spare' spare.id %}">DELETE
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+        <title>remove</title>
+        <path
+          d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
+        ></path>
+      </svg>
+    </a>
+    </div>
+  </div>
+  <div>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>{{spare.id}}</th>
+      </tr>
+      <tr>
+        <td>Part Code</td>
+        <td>{{spare.partCode}}</td>
+      </tr>
+      <tr>
+        <td>Status</td>
+        <td>{{spare.goodStatus}}</td>
+      </tr>
+      <tr>
+        <td>csceHWMO</td>
+        <td>{{spare.csceHWMO}}</td>
+      </tr>
+      <tr>
+        <td>SN</td>
+        <td>{{spare.serialNumber}}</td>
+      </tr>
+      <tr>
+        <td>product Description</td>
+        <td>{{spare.productDescription}}</td>
+      </tr>
+      <tr>
+        <td>deliver date</td>
+        <td>{{spare.deliverDate}}</td>
+      </tr>
+      <tr>
+        <td>warehouse</td>
+        <td>{{spare.warehouse}}</td>
+      </tr>
+      <tr>
+        <td>Sender</td>
+        <td>{{spare.sender}}</td>
+      </tr>
+      <tr>
+        <td>invoice</td>
+        <td>{{spare.invoice}}</td>
+      </tr>
+      <tr>
+        <td>batch</td>
+        <td>{{spare.batch}}</td>
+      </tr> 
+      <tr>
+        <td>transitWay</td>
+        <td>{{spare.transitWay}}</td>
+      </tr>  
+      <tr>
+        <td>ALL QTY</td>
+        <td>{{spare.actualQTY}}</td>
+      </tr>  
+      <tr>
+        <td>Consum QTY</td>
+        <td>{{spare.consumQTY}}</td>
+      </tr>  
+      <tr>
+        <td>Remain QTY</td>
+        <td>{{spare.remainQTY}}</td>
+      </tr>  
+      <tr>
+        <td>Remark</td>
+        <td>{{spare.remark}}</td>
+      </tr>   
+    </table>
+  </div>
+  
+
+<div class="row">
+<div class="container"> 
+  
+  <h1>Spare part OUT</h1> 
+	<table border="1" class="table responsive" id="sort">
+    <thead>
+    <tr style="text-align: right;">
+    <th scope="col">ID</th>
+    <th scope="col">Part Code</th>
+    <th scope="col">Good Status</th>
+    <th scope="col">Spare Part Type</th>
+    <th scope="col">csce HWMO</th>
+    <th scope="col">Serial Number</th>
+    <th scope="col">Product Description</th>
+    <th scope="col">Deliver Date</th>
+    <th scope="col">warehouse</th>
+    <th scope="col">actual QTY</th>
+    <th scope="col">consum QTY</th>
+    <th scope="col">remain QTY</th>
+    
+
+    <th scope="col">outqty</th>
+    <th scope="col">outDate</th>
+    <th scope="col">outReceiver</th>
+    <th scope="col">outGSP</th>
+    <th scope="col">outRemark</th>
+    <th scope="col">totalOut</th>
+    
+    </tr>
+    </thead>
+    <tbody>
+      {% for out in spareOut %}
+    <tr>
+    <td data-table-header="ID">{{out.id}}</td>
+    <td data-table-header="Part Code">{{out.sparePartGoodOut.partCode}}</td>
+    <td data-table-header="Good Status">{{spare.goodStatus}}</td>
+    <td data-table-header="Spare Part Type">{{spare.sparePartType}}</td>
+    <td data-table-header="csce HWMO">{{spare.csceHWMO}}</td>
+    <td data-table-header="Serial Number">{{spare.serialNumber}}</td>
+    <td data-table-header="Product Description">{{spare.productDescription}}</td>
+    <td data-table-header="Deliver Date">{{spare.deliverDate}}</td>
+    <td data-table-header="warehouse">{{spare.warehouse}}</td>
+    <td data-table-header="actual QTY">{{spare.actualQTY}}</td>
+    <td data-table-header="consum QTY">{{spare.consumQTY}}</td>
+    <td data-table-header="remain QTY">{{spare.remainQTY}}</td>
+    
+
+    <td data-table-header="outqty">{{out.outqty}}</td>
+    <td data-table-header="outDate">{{out.outDate}}</td>
+    <td data-table-header="outReceiver">{{out.outReceiver}}</td>
+    <td data-table-header="outGSP">{{out.outGSP}}</td>
+    <td data-table-header="outRemark">{{out.outRemark}} + {{totalOut}}</td>
+    <td data-table-header="totalOut">{{totalOut}}</td>
+    </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+</div>
+</div>
+
+<div style="margin-left: 20%;border: 1px outset rgb(56, 16, 16); background-color: rgb(216, 234, 240); text-align: left; width: 60%;">
+  <h1 style="text-align:center;">request Out spare</h1>
+  <div style="margin-left:70px">
+    <div>
+      <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input name="outqty" placeholder="outqty..."/>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input name="outDate" placeholder="outDate..."/>&nbsp;&nbsp;&nbsp;&nbsp;
+        <input name="outReceiver" placeholder="outReceiver..."/><br><br>
+        <!-- <input name="outGSP" placeholder="outGSP..."/>&nbsp;&nbsp;&nbsp;&nbsp; -->
+        <input name="outRemark" placeholder="outRemark..."/><br><br>
+        <input name="reportfile" type="file" id="file"/>
+        <br>
+        <center>
+        <button class="btn bg-gradient-info w-30 mt-4 mb-0" id="button-send" type="submit"> + Add new request</button>
+      </center>
+      </form>
+        <br>
+
+    </div>
+  </div>
+</div>
+<center>
+  {% if requestsuccess == 0 %}
+  <h5 style="color: red;">Request Failed</h5>
+  {% elif requestsuccess == 1  %}
+  <h5 style="color: rgb(32, 223, 48);">Request Successful</h5>
+  {% endif %}
+  </center>
+
+
+<div class="row">
+  <div class="container"> 
+    
+    <h1>Spare part OUT request</h1> 
+    <table border="1" class="table responsive" id="sort">
+      <thead>
+      <tr style="text-align: right;">
+      <th scope="col">ID</th>
+      <th scope="col">Requestor</th>
+      <th scope="col">outqty</th>
+      <th scope="col">outDate</th>
+      <th scope="col">outReceiver</th>
+      <!-- <th scope="col">outGSP</th> -->
+      <th scope="col">outRemark</th>
+      <th scope="col">Command</th>
+      
+      </tr>
+      </thead>
+      <tbody>
+        {% for out in spareOutRequest %}
+        {% if out.role == 0 %}
+      <tr>
+      <td data-table-header="ID">{{out.id}}</td>
+      <td data-table-header="Requestor">{{out.userOutRequestor}}</td>
+      <td data-table-header="outqty">{{out.outqty}}</td>
+      <td data-table-header="outDate">{{out.outDate}}</td>
+      <td data-table-header="outReceiver">{{out.outReceiver}}</td>
+      <!-- <td data-table-header="outGSP">{{out.outGSP}}</td> -->
+      <td data-table-header="outRemark">{{out.outRemark}} + {{totalOut}}</td>
+      <td data-table-header="Command"> 
+          {% csrf_token %}
+          <form action="#" method="get">
+            <input type="text" value="{{out.id}}" name="mytextbox" size="1"/>
+            <input type="submit" class="btn" value="Submit" name="mybtn">
+            <input type="submit" class="btn" value="Delete" name="deletebtn" style="color:red ;">
+           </form>
+      </td>
+      </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+      </table>
+  </div>
+  </div>
+    
+
+</body>
+</html>

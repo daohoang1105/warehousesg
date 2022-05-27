@@ -1,0 +1,196 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Billing {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="col-md-12 mb-lg-0 mb-4" style="width: 60%;">
+  <div class="card mt-4">
+    <div class="card-header pb-0 p-3">
+      <div class="row">
+        <div class="col-6 d-flex align-items-center">
+          <h6 class="mb-0">Add request</h6>
+        </div>
+        <!-- <div class="col-6 text-end">
+          <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Card</a>
+        </div> -->
+        <div>
+          <div class="card-body">
+            <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <select name="warehouse" id="warehouse" style="width: 29%; height: 32px;">
+                <option value="HN">HN</option>
+                <option value="HCM">HCM</option>
+                <option value="DN">DN</option>
+                <option value="KH">KH</option>
+              </select>
+              &nbsp;&nbsp;&nbsp;
+              <input name="SparePartCode" placeholder="Part Code..."/>&nbsp;&nbsp;&nbsp;&nbsp;
+              <input name="outqty" placeholder="outqty..."/><br><br>
+              <input name="outDate" placeholder="outDate..."/>&nbsp;&nbsp;&nbsp;&nbsp;
+              <input name="outReceiver" placeholder="outReceiver..."/>&nbsp;&nbsp;&nbsp;&nbsp;
+              <!-- <input name="outGSP" placeholder="outGSP..."/>&nbsp;&nbsp;&nbsp;&nbsp; -->
+              <input name="outRemark" placeholder="outRemark..."/>&nbsp;&nbsp;&nbsp;&nbsp;
+              <br><br>
+              <input name="reportfile" type="file" id="file"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn bg-gradient-info w-30 mt-4 mb-0" id="button-send" type="submit"><i class="fas fa-plus"></i> Add new request</button>
+            </form>
+              <br>
+              <center>
+              {% if requestsuccess == 0 %}
+              <h5 style="color: red;">Request Failed</h5>
+              {% elif requestsuccess == 1  %}
+              <h5 style="color: rgb(32, 223, 48);">Request Successful</h5>
+              {% endif %}
+              </center>
+          </div>
+        </div>
+      </div>
+    </div>  
+
+  </div>
+</div>
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-md-7 mt-4">
+        <div class="card">
+          <div class="card-header pb-0 px-3">
+            <h6 class="mb-0">Request spare-part out</h6>
+          </div>
+          <div class="card-body pt-4 p-3">
+            <ul class="list-group">
+              {% for d in data %}
+              {% if d.role == 0 %}
+              <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                <div class="d-flex flex-column">
+                  <h6 class="mb-3 text-sm">Request from: {{d.userOutRequestor}} &nbsp&nbsp _{{d.created|timesince}} ago</h6>
+                  <span class="mb-2 text-xs">Spare-part-out: <span class="text-dark font-weight-bold ms-sm-2">{{d.sparePartGoodOut.partCode}}</span></span>
+                  <span class="mb-2 text-xs">Out request QTY: <span class="text-dark ms-sm-2 font-weight-bold">{{d.outqty}}</span></span>
+                  <span class="text-xs">warehouse: <span class="text-dark ms-sm-2 font-weight-bold">{{d.sparePartGoodOut.warehouse}}</span></span><br>
+                  <span class="text-xs">File: <span class="text-dark ms-sm-2 font-weight-bold"><a href="/static/imagesmediaurl/{{d.file}}" download="{{d.file}}">{{d.file}}</a></span></span>
+                </div>
+                <div class="ms-auto text-end">
+                  <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="javascript:;"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                  <a class="btn btn-link text-dark px-3 mb-0" href="{% url 'manage-spare' d.sparePartGoodOut.id %}"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Detail</a>
+                  {% csrf_token %}
+                  <form action="#" method="get">
+                    <input type="text" value="{{d.id}}" name="mytextbox" size="1" style="display: none;"/>
+                    <input type="text" name="mytextboxGSP" placeholder="GSP...." size="20" />
+                    <input type="submit" class="btn bg-gradient-info w-70 mt-4 mb-0" value="Submit" name="submitbtn">
+                  </form>
+                </div>
+              </li>
+              {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col-md-5 mt-4">
+        <div class="card h-100 mb-4">
+          <div class="card-header pb-0 px-3">
+            <div class="row">
+              <div class="col-md-6">
+                <h6 class="mb-0">Your Transaction's</h6>
+              </div>
+              <div class="col-md-6 d-flex justify-content-end align-items-center">
+                <i class="far fa-calendar-alt me-2"></i>
+                <small>23 - 30 March 2020</small>
+              </div>
+            </div>
+          </div>
+          <div class="card-body pt-4 p-3">
+            <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Newest</h6>
+            <ul class="list-group">
+              <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-down"></i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">Netflix</h6>
+                    <span class="text-xs">27 March 2020, at 12:30 PM</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
+                  - $ 2,500
+                </div>
+              </li>
+              <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">Apple</h6>
+                    <span class="text-xs">27 March 2020, at 04:30 AM</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+                  + $ 2,000
+                </div>
+              </li>
+            </ul>
+            <h6 class="text-uppercase text-body text-xs font-weight-bolder my-3">Yesterday</h6>
+            <ul class="list-group">
+              <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">Stripe</h6>
+                    <span class="text-xs">26 March 2020, at 13:45 PM</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+                  + $ 750
+                </div>
+              </li>
+              <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">HubSpot</h6>
+                    <span class="text-xs">26 March 2020, at 12:30 PM</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+                  + $ 1,000
+                </div>
+              </li>
+              <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">Creative Tim</h6>
+                    <span class="text-xs">26 March 2020, at 08:30 AM</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+                  + $ 2,500
+                </div>
+              </li>
+              <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                <div class="d-flex align-items-center">
+                  <button class="btn btn-icon-only btn-rounded btn-outline-dark mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-exclamation"></i></button>
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">Webflow</h6>
+                    <span class="text-xs">26 March 2020, at 05:00 AM</span>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center text-dark text-sm font-weight-bold">
+                  Pending
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    {% include "includes/footer.html" %}
+
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}{% endblock javascripts %}

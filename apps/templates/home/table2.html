@@ -1,0 +1,33 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %} Tables {% endblock title %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}<link href="/static/assets/css/css0.css" rel="stylesheet" />{% endblock stylesheets %}
+
+{% block content %}
+<!-- Tab links -->
+<div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'Spare part management')">Spare part management</button>
+    <button class="tablinks" onclick="openCity(event, 'Spare part out record')">Spare part out record</button>
+    <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+  </div>
+  
+  <!-- Tab content -->
+  <div id="Spare part management" class="tabcontent">
+    <iframe title="Tables" src="http://127.0.0.1:8000/managetable/" height="600" width="1240"></iframe>
+  </div>
+  
+  <div id="Spare part out record" class="tabcontent">
+    <p><iframe title="Tables" src="http://127.0.0.1:8000/managesparepartouttable/" height="600" width="1240"></iframe></p>
+  </div>
+  
+  <div id="Tokyo" class="tabcontent">
+    <h3>Tokyo</h3>
+    <p>Tokyo is the capital of Japan.</p>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE --> 
+{% block javascripts %}<script src="/static/assets/js/js0.js"></script>{% endblock javascripts %}
